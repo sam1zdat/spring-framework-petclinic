@@ -16,3 +16,9 @@ stages:
       displayName: Maven package
       inputs:
         mavenPomFile: pom.xml
+    - task: PublishBuildArtifacts@1
+      displayName: publish the package to artifact
+      inputs:
+        ArtifactName: drop
+        PathtoPublish: $(System.DefaultWorkingDirectory)/**/target/*.?(war|jar)
+        TargetPath: $(Build.ArtifactStagingDirectory)
