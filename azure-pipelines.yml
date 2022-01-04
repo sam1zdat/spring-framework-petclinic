@@ -1,0 +1,18 @@
+trigger: none
+variables:
+  vmImage: 'ubuntu-latest'
+pool:
+  name: ubuntu-latest
+stages: 
+- stage: build
+  displayName: build stage
+  jobs:
+  - job: mavenpackageandpublishartifact
+    displayName: build and publish artifact
+    pool:
+      vmImage: $(vmImage)
+    steps:
+    - task: Maven@3
+      displayName: Maven package
+      inputs:
+        mavenPomFile: pom.xml
