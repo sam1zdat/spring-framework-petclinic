@@ -16,9 +16,14 @@ stages:
       displayName: Maven package
       inputs:
         mavenPomFile: pom.xml
+    - task: CopyFiles@2
+      displayName: Copy files to artifact staging directory
+      inputs:
+        SourceFolder: $(System.DefaultWorkingDirectory)
+        Contents:  '**/target/*.?(war|jar)'
+        TargetFolder: $(Build.ArtifactStagingDirectory)
     - task: PublishBuildArtifacts@1
       displayName: publish the package to artifact
       inputs:
         ArtifactName: drop
-        PathtoPublish: $(System.DefaultWorkingDirectory)/**/target/*.?(war|jar)
-        TargetPath: $(Build.ArtifactStagingDirectory)
+        PathtoPublish: $(Build.ArtifactStagingDirectory)
