@@ -48,4 +48,4 @@ stages:
           azureSubscription: 'Abonnement Visual Studio Enterprise(14abf4c6-3fa0-47af-b4a5-a7fbf3d5a47c)'
           appType: 'webAppLinux'
           appName: 'myapp-name'
-          package: '$(Pipeline.Workspace)/drop/target/*.?(war|jar)'
+          package: '$(System.DefaultWorkingDirectory)/drop/target/*.?(war|jar)'
