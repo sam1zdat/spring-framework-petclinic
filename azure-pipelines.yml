@@ -36,16 +36,16 @@ stages:
       pool:
         vmImage: $(vmImage)
       steps:
-      - task: DownloadBuildArtifacts@1
+      - task: DownloadBuildArtifacts@1 # Downloading: /home/vsts/work/1/a/drop/target/petclinic.war
         inputs:
           buildType: 'current'
           downloadType: 'single'
           artifactName: 'drop'
           downloadPath: '$(System.ArtifactsDirectory)'
-      - task: AzureWebApp@1
+      - task: AzureWebApp@1 # /home/vsts/work/1/s/**/**/*.?(war|jar
         displayName: azure web app deploy
         inputs:
           azureSubscription: 'Abonnement Visual Studio Enterprise(14abf4c6-3fa0-47af-b4a5-a7fbf3d5a47c)'
           appType: 'webAppLinux'
           appName: 'myapp-name'
-          package: '$(System.DefaultWorkingDirectory)/**/**/*.?(war|jar)'
+          package: '$(Pipeline.Workspace)/drop/**/target/*.?(war|jar)'
