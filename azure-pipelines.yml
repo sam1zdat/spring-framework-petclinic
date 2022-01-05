@@ -27,3 +27,17 @@ stages:
       inputs:
         ArtifactName: drop
         PathtoPublish: $(Build.ArtifactStagingDirectory)
+- stage: deploy
+  displayName: deploy to azure app service
+  jobs:
+    - job: deploy
+      displayName: deploy java web app to azure
+      pool:
+        vmImage: $(vmImage)
+      steps:
+- task: DownloadBuildArtifacts@1
+  inputs:
+    buildType: 'current'
+    downloadType: 'single'
+    artifactName: 'drop'
+    downloadPath: '$(System.ArtifactsDirectory)'
